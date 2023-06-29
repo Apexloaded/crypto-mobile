@@ -1,0 +1,77 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons class="ion-no-margin" slot="start">
+      <ion-button (click)="viewHistory()">
+        <ion-icon slot="icon-only" color="dark" name="document-text-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons class="ion-no-margin" slot="end">
+      <ion-button (click)="addTrade()">
+        <ion-icon slot="icon-only" color="dark" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<div *ngIf="isLoading" class="ion-text-center h-full ion-align-items-center flex ion-justify-content-center">
+  <ion-spinner name="circles"></ion-spinner>
+</div>
+<div *ngIf="!isLoading && error && error?.msg" class="w-full h-full z-50">
+  <app-error
+    [icon]="error.icon"
+    [title]="error.title"
+    [msg]="error.msg"
+  ></app-error>
+</div>
+<ion-content [fullscreen]="true" *ngIf="!isLoading && !error?.msg">
+  <div class="container h-full">
+    <div class="section h-full">
+      <ion-grid class="ion-no-padding px-3">
+        <ion-row>
+          <ion-col *ngIf="this.investmentAccount">
+            <ion-row>
+              <ion-col size="4" class="px-0 py-0">
+                <p class="m-0 text-sm text-dark">Active</p>
+                <p class="m-0 font-bold text-md text-gray-400">{{ investmentAccount.active_investment | currency }}</p>
+              </ion-col>
+              <ion-col size="4" class="px-0 py-0">
+                <p class="m-0 text-sm text-dark">Earnings <span class="text-xs">%{{ investmentAccount.percentage_earnings }}</span></p>
+                <p class="m-0 font-bold text-md text-green-600">{{ investmentAccount.earnings | currency }}</p>
+              </ion-col>
+              <ion-col size="4" class="px-0 py-0">
+                <p class="m-0 text-sm text-dark">Balance</p>
+                <p class="m-0 font-bold text-md text-red-600">{{ investmentAccount.earnings + investmentAccount.active_investment | currency }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="mt-0" *ngIf="transactions">
+            <ion-list>
+              <ion-item *ngFor="let transaction of transactions" lines="none" [routerLink]="['/', 'transactions', 'details', transaction.id]" class="ion-no-padding p-0" button>
+                <ion-icon name="arrow-redo-circle-outline" class="text-green-600"></ion-icon>
+                <ion-label class="py-0 mb-1 ml-2">
+                  <div class="flex ion-justify-content-between">
+                    <h5 class="text-dark">USD</h5>
+                    <p class="font-bold text-dark">{{ transaction.amount | currency }}</p>
+                  </div>
+                  <div class="flex ion-justify-content-between">
+                    <p class="text-xs text-gray-400">{{ transaction.created_at | date }}</p>
+                    <div *ngIf="transaction.status == 'SUCCESSFUL'" class="flex ion-align-items-center m-0 text-gray-400">
+                      <span class="status bg-green-600 mr-1"></span>
+                      <p class="m-0 text-xs">Completed</p>
+                    </div>
+                    <div *ngIf="transaction.status == 'PENDING'" class="flex ion-align-items-center m-0 text-gray-400">
+                      <span class="status bg-blue-600 mr-1"></span>
+                      <p class="m-0 text-xs">Pending</p>
+                    </div>
+                  </div>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    </div>
+
+</ion-content>

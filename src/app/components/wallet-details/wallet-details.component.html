@@ -1,0 +1,102 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons class="ion-no-margin" slot="end">
+      <ion-button (click)="close()">
+        <ion-icon
+          slot="icon-only"
+          color="dark"
+          name="close-circle-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="section">
+      <ion-grid class="ion-no-padding px-3">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <div class="balance-holder">
+              <div>
+                <p class="ion-no-margin text-dark mt-3 text-2xl font-thin">
+                  Total Balance
+                </p>
+                <p class="ion-no-margin text-dark text-3xl font-bold mt-1">
+                  {{ data.totalBal | currency }}
+                </p>
+                <div class="mb-4">
+                  <ion-icon
+                    *ngIf="data.type == 'BTC'"
+                    name="logo-bitcoin"
+                    class="mt-2 icon text-dark text-xl"
+                  ></ion-icon>
+                  <ion-icon
+                    *ngIf="data.type == 'USDT'"
+                    name="logo-usd"
+                    class="mt-2 icon text-dark text-xl"
+                  ></ion-icon>
+                </div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="12">
+            <ion-row>
+              <ion-col size="12" class="px-0 py-0 mt-5">
+                <p
+                  class="ion-no-padding m-0 flex ion-align-items-center text-dark font-medium text-2xl"
+                >
+                  <span>Wallet Address</span>
+                </p>
+                <p class="m-0 text-sm text-medium">
+                  You can copy and share your wallet address
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-row>
+              <ion-col size="12" class="px-0 py-0 mt-4">
+                <form [formGroup]="form">
+                  <ion-input
+                    class="bg-light text-dark"
+                    formControlName="wallet"
+                  ></ion-input>
+                </form>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" class="px-0 py-0 mt-4">
+                <div class="flex ion-justify-content-between">
+                  <ion-button
+                    color="medium"
+                    (click)="copy(data.wallet)"
+                    expand="block"
+                    class="rounded-lg shadow-none capitalize font-medium"
+                  >
+                    <ion-icon name="copy-outline" class="mr-1"></ion-icon>
+                    Copy
+                  </ion-button>
+                  <ion-button
+                    (click)="updateWallet(data.wallet.id)"
+                    expand="block"
+                    class="rounded-lg shadow-none capitalize font-medium"
+                  >
+                    <ion-icon name="create-outline" class="mr-1"></ion-icon>
+                    Update
+                  </ion-button>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

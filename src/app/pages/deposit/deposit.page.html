@@ -1,0 +1,135 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons class="ion-no-margin" slot="start">
+      <ion-button (click)="back()">
+        <ion-icon
+          slot="icon-only"
+          color="dark"
+          name="arrow-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons class="ion-no-margin" slot="end">
+      <ion-button (click)="viewHistory()">
+        <ion-icon
+          slot="icon-only"
+          color="dark"
+          name="document-text-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container h-full">
+    <form [formGroup]="depositForm" class="w-full h-full">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="section">
+            <div class="mb-8">
+              <p class="text-2xl font-bold">Deposit</p>
+              <p class="text-gray-500">Deposit fund to an investment package</p>
+            </div>
+            <div>
+              <div class="flex flex-col gap-5">
+                <ion-select
+                  label="Select Plan"
+                  labelPlacement="floating"
+                  formControlName="plan"
+                  class="border-none"
+                  fill="outline"
+                  (ionChange)="handleOnChange($event)"
+                >
+                  <ion-select-option
+                    *ngFor="let plan of plans"
+                    value="{{plan.id}}"
+                    >{{plan.package_name}}</ion-select-option
+                  >
+                </ion-select>
+
+                <ion-input
+                  label="Amount"
+                  labelPlacement="floating"
+                  class="border-none px-4"
+                  fill="outline"
+                  type="tel"
+                  formControlName="amount"
+                ></ion-input>
+
+                <ion-select
+                  label="Payment Method"
+                  labelPlacement="floating"
+                  formControlName="payment_method"
+                  class="border-none"
+                  fill="outline"
+                >
+                  <ion-select-option value="USDT">USDT</ion-select-option>
+                  <ion-select-option value="BTC">BTC</ion-select-option>
+                </ion-select>
+              </div>
+            </div>
+          </div>
+          <div class="section mt-4">
+            <div *ngIf="depositForm.controls['plan'].value" class="rounded-lg overflow-hidden mt-1">
+              <div class="py-3 text-center bg-blue-500">
+                <p class="m-0 text-sm font-bold text-white uppercase">
+                  {{ selectedPlan.package_name }}
+                </p>
+              </div>
+              <div class="flex p-2 bg-white items-center justify-between">
+                <p class="text-dark capitalize font-bold">Amount</p>
+                <div class="text-sm text-dark flex items-center space-x-3">
+                  <div class="text-center flex flex-col">
+                    <p class="text-lg font-bold text-gray-600 leading-none">
+                      {{ selectedPlan.min_amount | currency}}
+                    </p>
+                    <small class="text-red-500 leading-none">(min)</small>
+                  </div>
+                  <ion-icon name="return-up-forward-outline"></ion-icon>
+                  <div class="text-center flex flex-col">
+                    <p class="text-lg font-bold text-gray-600 leading-none">
+                      {{ selectedPlan.max_amount | currency }}
+                    </p>
+                    <small class="text-blue-500 leading-none">(max)</small>
+                  </div>
+                </div>
+              </div>
+              <div class="flex p-2 bg-gray-200 items-center justify-between">
+                <p class="text-dark capitalize font-bold">Returns</p>
+                <div class="text-center">
+                  <p class="text-green-600 capitalize font-bold">
+                    {{ selectedPlan.max_percent }}%
+                    <span class="text-gray-300 text-xs"
+                      >({{ selectedPlan.payment_period }})</span
+                    >
+                  </p>
+                </div>
+              </div>
+              <div class="flex p-2 bg-white items-center justify-between">
+                <p class="text-dark capitalize font-bold">
+                  Unlimited Daily Trade
+                </p>
+              </div>
+              <div class="flex p-2 bg-gray-200 items-center justify-between">
+                <p class="text-dark capitalize font-bold">
+                  Personal Account Manager
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section pb-6">
+          <div>
+            <ion-button
+              class="capitalize text-xl"
+              expand="block"
+              (click)="initDeposit()"
+              >Proceed</ion-button
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

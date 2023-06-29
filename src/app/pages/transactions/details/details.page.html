@@ -1,0 +1,112 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons class="ion-no-margin" slot="start">
+      <ion-button (click)="back()">
+        <ion-icon
+          slot="icon-only"
+          color="dark"
+          name="arrow-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="px-0 text-dark">Transaction Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+<div
+  *ngIf="isLoading"
+  class="ion-text-center h-full ion-align-items-center flex ion-justify-content-center"
+>
+  <ion-spinner name="circles"></ion-spinner>
+</div>
+<ion-content [fullscreen]="true" *ngIf="!isLoading">
+  <div class="container h-full">
+    <div class="section h-full">
+      <ion-grid class="ion-no-padding px-3 w-full">
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <div class="balance-holder">
+              <div class="py-5">
+                <p class="ion-no-margin text-dark mt-3 text-md font-thin">
+                  Amount
+                </p>
+                <h1 class="ion-no-margin text-dark font-bold text-3xl mt-1">
+                  {{ transaction?.amount }}<span
+                    class="text-lg font-normal ml-1"
+                    >USD</span
+                  >
+                </h1>
+                <div
+                  *ngIf="transaction?.status == 'SUCCESSFUL'"
+                  class="mb-4 mt-2 flex ion-align-items-center ion-justify-content-center"
+                >
+                  <ion-icon
+                    name="checkmark-circle-outline"
+                    class="text-lg text-green-600"
+                  ></ion-icon>
+                  <p class="ml-1 m-0 text-green-600">Completed</p>
+                </div>
+                <div
+                  *ngIf="transaction?.status == 'PENDING'"
+                  class="mb-4 mt-2 flex ion-align-items-center ion-justify-content-center"
+                >
+                  <ion-icon
+                    name="radio-button-on-outline"
+                    class="text-lg text-blue-600"
+                  ></ion-icon>
+                  <p class="ml-1 m-0 text-blue-600">Pending</p>
+                </div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              <ion-col size="12" class="px-0 py-0 mt-4">
+                <div class="font-medium ref-link">
+                  <p class="m-0 text-dark">Transaction</p>
+                </div>
+                <div class="bg-gray-200 px-2">
+                  <div class="py-2 mt-1 flex ion-justify-content-between">
+                    <p class="m-0 text-sm text-medium">Confirmation</p>
+                    <p
+                      class="m-0 text-sm text-dark"
+                      *ngIf="transaction?.status == 'SUCCESSFUL'"
+                    >
+                      3/3
+                    </p>
+                    <p
+                      class="m-0 text-sm text-dark"
+                      *ngIf="transaction?.status == 'PENDING'"
+                    >
+                      1/3
+                    </p>
+                  </div>
+                  <div class="py-2 flex ion-justify-content-between">
+                    <p class="m-0 text-sm text-medium">Transaction ID</p>
+                    <div class="flex ion-align-items-center">
+                      <p class="m-0 text-sm text-dark mr-1">
+                        {{ transaction?.id | slice : 0 : 10 }}
+                      </p>
+                      <ion-icon
+                        name="copy-outline"
+                        (click)="copy(transaction?.id)"
+                        class="text-primary"
+                      ></ion-icon>
+                    </div>
+                  </div>
+                  <div class="py-2 flex ion-justify-content-between">
+                    <p class="m-0 text-sm text-medium">Date</p>
+                    <p class="m-0 text-sm text-dark">
+                      {{ transaction?.created_at | date }}
+                    </p>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

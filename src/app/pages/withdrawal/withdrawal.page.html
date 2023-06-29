@@ -1,0 +1,90 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons class="ion-no-margin" slot="start">
+      <ion-button (click)="back()">
+        <ion-icon
+          slot="icon-only"
+          color="dark"
+          name="arrow-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons class="ion-no-margin" slot="end">
+      <ion-button (click)="viewHistory()">
+        <ion-icon
+          slot="icon-only"
+          color="dark"
+          name="document-text-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container h-full">
+    <form [formGroup]="withdrawalForm" class="w-full h-full">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="section">
+            <div class="mb-8">
+              <p class="text-2xl font-bold">Withdrawal</p>
+              <p class="text-gray-500">Withdraw your funds to your wallet</p>
+            </div>
+            <div>
+              <div class="flex flex-col gap-5">
+                <ion-input
+                  label="Amount"
+                  labelPlacement="floating"
+                  class="border-none px-4"
+                  fill="outline"
+                  type="number"
+                  formControlName="amount"
+                ></ion-input>
+
+                <ion-select
+                  label="Payment Method"
+                  labelPlacement="floating"
+                  formControlName="payment_method"
+                  class="border-none"
+                  fill="outline"
+                >
+                  <ion-select-option value="USDT">USDT</ion-select-option>
+                  <ion-select-option value="BTC">BTC</ion-select-option>
+                </ion-select>
+
+                <div class="flex items-center relative">
+                  <ion-input
+                    label="Enter OTP"
+                    labelPlacement="floating"
+                    class="ion-padding-horizontal border-none"
+                    fill="outline"
+                    type="text"
+                    formControlName="otp"
+                    placeholder="Enter OTP"
+                  ></ion-input>
+                  <ion-text
+                    color="primary"
+                    class="absolute right-0 z-50 p-4 font-bold"
+                    (click)="requestOTP()"
+                    >Get OTP</ion-text
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section pb-6">
+          <div>
+            <ion-button
+              class="capitalize text-xl"
+              expand="block"
+              (click)="initWithdrawal()"
+              >Withdrawal</ion-button
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

@@ -1,0 +1,84 @@
+<ion-content [fullscreen]="true">
+  <div class="container h-full">
+    <form [formGroup]="form" class="w-full h-full">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="py-5 px-2">
+            <ion-buttons>
+              <ion-button (click)="back()">
+                <ion-icon
+                  name="return-up-back-outline"
+                  class="text-black"
+                ></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </div>
+          <div class="section mt-2">
+            <div class="mb-8">
+              <p class="text-3xl font-bold">Join us.</p>
+              <p class="text-gray-500 text-lg">
+                Become a member today!
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-col gap-4">
+                <ion-input
+                  label="Email address"
+                  labelPlacement="floating"
+                  class="ion-padding-horizontal border-none"
+                  fill="outline"
+                  type="email"
+                  formControlName="email"
+                  placeholder="Please enter email"
+                ></ion-input>
+
+                <ion-input
+                  label="Password"
+                  labelPlacement="floating"
+                  class="ion-padding-horizontal border-none"
+                  fill="outline"
+                  type="password"
+                  formControlName="password"
+                  placeholder="Please enter your password"
+                ></ion-input>
+
+                <div class="flex items-center relative">
+                  <ion-input
+                    label="Referral's ID"
+                    labelPlacement="floating"
+                    class="ion-padding-horizontal border-none"
+                    fill="outline"
+                    type="text"
+                    formControlName="ref_id"
+                    placeholder="Referral ID"
+                  ></ion-input>
+                  <ion-icon
+                    name="copy-outline"
+                    class="absolute right-0 z-50 p-4"
+                    (click)="pasteText()"
+                  ></ion-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section pb-6">
+          <div class="mb-4 flex gap-2 items-center">
+            <ion-checkbox formControlName="terms"></ion-checkbox>
+            <p class="text-sm text-left">
+              I read and accept
+              <ion-text (click)="initBrowser('terms-of-service')" color="primary" class="font-bold"
+                >Terms and conditions</ion-text
+              >
+            </p>
+          </div>
+          <div>
+            <ion-button class="capitalize" expand="block" (click)="register()"
+              >Register</ion-button
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

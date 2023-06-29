@@ -1,0 +1,66 @@
+<ion-content [fullscreen]="true">
+  <div class="container h-full">
+    <form [formGroup]="form" class="w-full h-full">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="py-5 px-2">
+            <ion-buttons>
+              <ion-button (click)="back()">
+                <ion-icon
+                  name="return-up-back-outline"
+                  class="text-black"
+                ></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </div>
+          <div class="section mt-2">
+            <div class="mb-8">
+              <p class="text-3xl font-bold">Sign in.</p>
+              <p class="text-gray-500 text-lg">Welcome back, we've missed you!</p>
+            </div>
+            <div>
+              <div class="flex flex-col gap-4">
+                <ion-input
+                  label="Email address"
+                  labelPlacement="floating"
+                  class="ion-padding-horizontal border-none"
+                  fill="outline"
+                  type="email"
+                  formControlName="email"
+                  placeholder="Please enter email"
+                ></ion-input>
+
+                <ion-input
+                  label="Password"
+                  labelPlacement="floating"
+                  class="ion-padding-horizontal border-none"
+                  fill="outline"
+                  type="password"
+                  formControlName="password"
+                  placeholder="Please enter your password"
+                ></ion-input>
+              </div>
+            </div>
+            <p class="text-sm mt-2 text-right" [routerLink]="['/', 'forgot']">
+              Forgot password?
+              <ion-text class="font-bold" color="primary">Recover</ion-text>
+            </p>
+          </div>
+        </div>
+        <div class="section pb-6">
+          <div class="mb-4">
+            <p class="text-sm text-center">
+              Dont have an account?
+              <ion-text color="primary" class="font-bold">Register</ion-text>
+            </p>
+          </div>
+          <div>
+            <ion-button class="capitalize" expand="block" (click)="login()"
+              >Login</ion-button
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

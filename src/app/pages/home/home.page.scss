@@ -1,0 +1,14 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(24, 24, 152, 1) 49%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019', GradientType=1 );
+  color: #ffffff;
+}

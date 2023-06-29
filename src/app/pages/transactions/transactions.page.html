@@ -1,0 +1,337 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="ion-no-shadow">
+    <ion-buttons class="ion-no-margin" slot="start">
+      <ion-button (click)="back()">
+        <ion-icon
+          slot="icon-only"
+          color="dark"
+          name="arrow-back-outline"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="px-0 text-dark">Transactions History</ion-title>
+  </ion-toolbar>
+  <ion-segment
+    [scrollable]="true"
+    color="primary"
+    [(ngModel)]="segment"
+    color="medium"
+    class="header-segment bg-light"
+    (ionChange)="segmentChanged()"
+  >
+    <ion-segment-button value="0">
+      <ion-label class="capitalize font-bold">All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-label class="capitalize font-bold">Deposit</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      <ion-label class="capitalize font-bold">Earnings</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      <ion-label class="capitalize font-bold">Withdrawal</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+<div
+  *ngIf="isLoading"
+  class="ion-text-center h-full ion-align-items-center flex ion-justify-content-center"
+>
+  <ion-spinner name="circles"></ion-spinner>
+</div>
+<div *ngIf="!isLoading && error && error.msg" class="w-full h-full z-50">
+  <app-error
+    [icon]="error.icon"
+    [title]="error.title"
+    [msg]="error.msg"
+  ></app-error>
+</div>
+<ion-content [fullscreen]="true" *ngIf="!isLoading && !error?.msg">
+  <div class="container h-full">
+    <div class="section h-full">
+      <swiper-container
+        [ngClass]="isFullHeight ? 'h-full' : ''"
+        #swiper
+        pager="false"
+        [modules]="swiperModules"
+        [options]="sliderOptions"
+        (slidechange)="slidesChange()"
+        (init)="slidesChange()"
+        class="w-full h-full"
+      >
+        <!-- All transactions slide -->
+        <swiper-slide>
+          <div *ngIf="transactions.length < 1" class="w-full h-full z-50">
+            <app-notification-msg
+              [icon]="notificationMsg.icon"
+              [title]="notificationMsg.title"
+              [msg]="notificationMsg.msg"
+              [redirectUrl]="notificationMsg.btn.url"
+              [btnTitle]="notificationMsg.btn.title"
+            ></app-notification-msg>
+          </div>
+
+          <ion-grid
+            *ngIf="transactions.length > 0"
+            class="ion-no-padding px-3 w-full"
+          >
+            <ion-row>
+              <ion-col size="12" class="mt-0">
+                <ion-list>
+                  <ion-item
+                    *ngFor="let transaction of transactions"
+                    [routerLink]="['/', 'transactions', 'details', transaction.id]"
+                    lines="none"
+                    class="ion-no-padding p-0"
+                    button
+                  >
+                    <ion-icon
+                      *ngIf="transaction.transaction_type == 'CREDIT'"
+                      name="arrow-redo-circle-outline"
+                      class="text-green-600"
+                    ></ion-icon>
+                    <ion-icon
+                      *ngIf="transaction.transaction_type == 'DEBIT'"
+                      name="arrow-undo-circle-outline"
+                      class="text-red-600"
+                    ></ion-icon>
+                    <ion-icon
+                      *ngIf="transaction.transaction_type == 'EARNING'"
+                      name="arrow-redo-circle-outline"
+                      class="text-green-600"
+                    ></ion-icon>
+
+                    <ion-label class="py-0 mb-1 ml-2">
+                      <div class="flex ion-justify-content-between">
+                        <h5 class="text-dark">USD</h5>
+                        <p class="font-bold text-dark">
+                          {{ transaction.amount | currency }}
+                        </p>
+                      </div>
+                      <div class="flex ion-justify-content-between">
+                        <p class="text-xs text-gray-500">
+                          {{ transaction.created_at | date }}
+                        </p>
+                        <div
+                          *ngIf="transaction.status == 'SUCCESSFUL'"
+                          class="flex ion-align-items-center m-0 text-gray-500"
+                        >
+                          <span class="status bg-green-600 mr-1"></span>
+                          <p class="m-0 text-xs">Completed</p>
+                        </div>
+                        <div
+                          *ngIf="transaction.status == 'PENDING'"
+                          class="flex ion-align-items-center m-0 text-gray-500"
+                        >
+                          <span class="status bg-blue-600 mr-1"></span>
+                          <p class="m-0 text-xs">Pending</p>
+                        </div>
+                      </div>
+                    </ion-label>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </swiper-slide>
+
+        <!-- Credit transaction slide -->
+        <swiper-slide>
+          <div *ngIf="creditTransactions.length < 1" class="w-full h-full z-50">
+            <app-notification-msg
+              [icon]="notificationMsg.icon"
+              [title]="notificationMsg.title"
+              [msg]="notificationMsg.msg"
+              [redirectUrl]="notificationMsg.btn.url"
+              [btnTitle]="notificationMsg.btn.title"
+            ></app-notification-msg>
+          </div>
+
+          <ion-grid
+            *ngIf="creditTransactions.length > 0"
+            class="ion-no-padding px-3 w-full"
+          >
+            <ion-row>
+              <ion-col class="mt-0">
+                <ion-list>
+                  <ion-item
+                    *ngFor="let transaction of creditTransactions"
+                    [routerLink]="['/', 'transactions', 'details', transaction.id]"
+                    lines="none"
+                    class="ion-no-padding p-0"
+                    button
+                  >
+                    <ion-icon
+                      *ngIf="transaction.transaction_type == 'CREDIT'"
+                      name="arrow-redo-circle-outline"
+                      class="text-green-600"
+                    ></ion-icon>
+
+                    <ion-label class="py-0 mb-1 ml-2">
+                      <div class="flex ion-justify-content-between">
+                        <h5 class="text-dark">USD</h5>
+                        <p class="font-bold text-dark">
+                          {{ transaction.amount | currency }}
+                        </p>
+                      </div>
+                      <div class="flex ion-justify-content-between">
+                        <p class="text-xs text-gray-500">
+                          {{ transaction.created_at | date }}
+                        </p>
+                        <div
+                          *ngIf="transaction.status == 'SUCCESSFUL'"
+                          class="flex ion-align-items-center m-0 text-gray-500"
+                        >
+                          <span class="status bg-green-600 mr-1"></span>
+                          <p class="m-0 text-xs">Completed</p>
+                        </div>
+                        <div
+                          *ngIf="transaction.status == 'PENDING'"
+                          class="flex ion-align-items-center m-0 text-gray-500"
+                        >
+                          <span class="status bg-blue-600 mr-1"></span>
+                          <p class="m-0 text-xs">Pending</p>
+                        </div>
+                      </div>
+                    </ion-label>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </swiper-slide>
+
+        <!-- Earnings transaction slide -->
+        <swiper-slide>
+          <div
+            *ngIf="earningTransactions.length < 1"
+            class="w-full h-full z-50"
+          >
+            <app-notification-msg
+              [icon]="notificationMsg.icon"
+              [title]="notificationMsg.title"
+              [msg]="notificationMsg.msg"
+            ></app-notification-msg>
+          </div>
+
+          <ion-grid
+            class="ion-no-padding px-3 w-full"
+            *ngIf="earningTransactions.length > 0"
+          >
+            <ion-row>
+              <ion-col class="mt-0">
+                <ion-list>
+                  <ion-item
+                    *ngFor="let transaction of earningTransactions"
+                    [routerLink]="['/', 'transactions', 'details', transaction.id]"
+                    lines="none"
+                    class="ion-no-padding p-0"
+                    button
+                  >
+                    <ion-icon
+                      *ngIf="transaction.transaction_type == 'EARNING'"
+                      name="arrow-redo-circle-outline"
+                      class="text-green-600"
+                    ></ion-icon>
+
+                    <ion-label class="py-0 mb-1 ml-2">
+                      <div class="flex ion-justify-content-between">
+                        <h5 class="text-dark">USD</h5>
+                        <p class="font-bold text-dark">
+                          {{ transaction.amount | currency }}
+                        </p>
+                      </div>
+                      <div class="flex ion-justify-content-between">
+                        <p class="text-xs text-gray-500">
+                          {{ transaction.created_at | date }}
+                        </p>
+                        <div
+                          *ngIf="transaction.status == 'SUCCESSFUL'"
+                          class="flex ion-align-items-center m-0 text-gray-500"
+                        >
+                          <span class="status bg-green-600 mr-1"></span>
+                          <p class="m-0 text-xs">Completed</p>
+                        </div>
+                        <div
+                          *ngIf="transaction.status == 'PENDING'"
+                          class="flex ion-align-items-center m-0 text-gray-500"
+                        >
+                          <span class="status bg-blue-600 mr-1"></span>
+                          <p class="m-0 text-xs">Pending</p>
+                        </div>
+                      </div>
+                    </ion-label>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </swiper-slide>
+
+        <!-- Debits transaction slide -->
+        <swiper-slide>
+          <div *ngIf="debitTransactions.length < 1" class="w-full h-full z-50">
+            <app-notification-msg
+              [icon]="notificationMsg.icon"
+              [title]="notificationMsg.title"
+              [msg]="notificationMsg.msg"
+            ></app-notification-msg>
+          </div>
+
+          <ion-grid
+            class="ion-no-padding px-3 w-full"
+            *ngIf="debitTransactions.length > 0"
+          >
+            <ion-row>
+              <ion-col class="mt-0">
+                <ion-list>
+                  <ion-item
+                    *ngFor="let transaction of debitTransactions"
+                    [routerLink]="['/', 'transactions', 'details', transaction.id]"
+                    lines="none"
+                    class="ion-no-padding p-0"
+                    button
+                  >
+                    <ion-icon
+                      *ngIf="transaction.transaction_type == 'DEBIT'"
+                      name="arrow-undo-circle-outline"
+                      class="text-red-600"
+                    ></ion-icon>
+
+                    <ion-label class="py-0 mb-1 ml-2">
+                      <div class="flex ion-justify-content-between">
+                        <h5 class="text-dark">USD</h5>
+                        <p class="font-bold text-dark">
+                          {{ transaction.amount | currency }}
+                        </p>
+                      </div>
+                      <div class="flex ion-justify-content-between">
+                        <p class="text-xs text-gray-500">
+                          {{ transaction.created_at | date }}
+                        </p>
+                        <div
+                          *ngIf="transaction.status == 'SUCCESSFUL'"
+                          class="flex ion-align-items-center m-0 text-gray-500"
+                        >
+                          <span class="status bg-green-600 mr-1"></span>
+                          <p class="m-0 text-xs">Completed</p>
+                        </div>
+                        <div
+                          *ngIf="transaction.status == 'PENDING'"
+                          class="flex ion-align-items-center m-0 text-gray-500"
+                        >
+                          <span class="status bg-blue-600 mr-1"></span>
+                          <p class="m-0 text-xs">Pending</p>
+                        </div>
+                      </div>
+                    </ion-label>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+  </div>
+</ion-content>
