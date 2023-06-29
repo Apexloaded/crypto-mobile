@@ -9,7 +9,12 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "run-ios": "ionic cap run ios -l --target=1E54E685-3D62-404A-9225-22FD04622C81 --prod",
+    "resources": "cordova-res --skip-config --copy",
+    "gen-key": "keytool -genkey -v -keystore release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000",
+    "sign-app": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore pml-customer-app.keystore ./android/app/build/outputs/apk/release/app-release-unsigned.apk alias_name",
+    "zip-app": "zipalign -v 4 ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk pml-mobile-app.apk"
   },
   "private": true,
   "dependencies": {
