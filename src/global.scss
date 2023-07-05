@@ -25,6 +25,11 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+.ios ion-input, .ios ion-select {
+  border: 1px solid #444444;
+  border-radius: 18px;
+}
+
 .container {
   @apply max-w-xl mx-auto;
 }

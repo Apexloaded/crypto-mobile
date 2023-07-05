@@ -8,6 +8,7 @@ import { ErrorComponent } from 'src/app/components/error/error.component';
 import { NotificationMsgComponent } from 'src/app/components/notification-msg/notification-msg.component';
 import { ProfilePopoverComponent } from 'src/app/components/profile-popover/profile-popover.component';
 import { ProfileEditComponent } from 'src/app/components/profile-edit/profile-edit.component';
+import { ShowWalletComponent } from 'src/app/components/show-wallet/show-wallet.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ProfileEditComponent } from 'src/app/components/profile-edit/profile-ed
     ErrorComponent,
     NotificationMsgComponent,
     ProfilePopoverComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    ShowWalletComponent
   ],
   imports: [CommonModule, IonicModule, ReactiveFormsModule],
   exports: [
@@ -25,7 +27,8 @@ import { ProfileEditComponent } from 'src/app/components/profile-edit/profile-ed
     ErrorComponent,
     NotificationMsgComponent,
     ProfilePopoverComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    ShowWalletComponent
   ]
 })
 export class SharedModule {}

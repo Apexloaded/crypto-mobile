@@ -2,147 +2,239 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="back()">
-        <ion-icon name="chevron-back-outline" slot="icon-only" color="primary"></ion-icon>
+        <ion-icon
+          name="chevron-back-outline"
+          slot="icon-only"
+          color="primary"
+        ></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content *ngIf="data === 'edit-name' && !isLoading">
-  <form [formGroup]="editName">
-    <ion-grid class="ion-no-padding px-3">
-      <ion-row>
-        <ion-col size="12" size-xl="6" offset-xl="3" class="mb-4">
-          <h2 color="primary">What would you like us to call you?</h2>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-list class="ion-no-padding">
-            <ion-item color="light" lines="none">
-              <ion-label position="floating" color="medium">First Name</ion-label>
-              <ion-input type="text" formControlName="first_name"></ion-input>
-            </ion-item>
-            <ion-item color="light" lines="none">
-              <ion-label position="floating" color="medium">Last Name</ion-label>
-              <ion-input type="text" formControlName="last_name"></ion-input>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-button shape="round" expand="full" size="large" (click)="updateBtn()">UPDATE</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+<ion-content *ngIf="data === 'edit-name' && !isLoading" [fullscreen]="true">
+  <div class="container h-full">
+    <form [formGroup]="editName" class="w-full h-full">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="section">
+            <div class="mb-8">
+              <p class="text-2xl font-bold">Name</p>
+              <p class="text-gray-500">What would you like us to call you?</p>
+            </div>
+            <div>
+              <div class="flex flex-col gap-5">
+                <ion-input
+                  label="First Name"
+                  labelPlacement="floating"
+                  class="border-none px-4"
+                  fill="outline"
+                  type="text"
+                  formControlName="first_name"
+                ></ion-input>
+
+                <ion-input
+                  label="Last Name"
+                  labelPlacement="floating"
+                  class="border-none px-4"
+                  fill="outline"
+                  type="text"
+                  formControlName="last_name"
+                ></ion-input>
+              </div>
+            </div>
+          </div>
+          <div class="section mt-10 pb-6">
+            <ion-button
+              class="capitalize text-xl"
+              expand="block"
+              (click)="updateBtn()"
+              >Update</ion-button
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </ion-content>
-<!-- <ion-content *ngIf="type === 'edit-gender' && !isLoading">
-  <form [formGroup]="editGender">
-    <ion-grid class="ion-no-padding px-3">
-      <ion-row>
-        <ion-col size="12" size-xl="6" offset-xl="3" class="mb-4">
-          <h2 color="primary" class="text-left">Kindly select your gender</h2>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-list class="ion-no-padding">
-            <ion-item color="light" lines="none">
-              <ion-label position="floating" color="medium">Gender</ion-label>
-              <ion-select formControlName="gender">
-                <ion-select-option value="MALE">MALE</ion-select-option>
-                <ion-select-option value="FEMALE">FEMALE</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-button shape="round" expand="full" size="large" (click)="updateBtn()">UPDATE</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
-</ion-content> -->
-<ion-content *ngIf="data === 'edit-email' && !isLoading">
-  <form [formGroup]="editEmail">
-    <ion-grid class="ion-no-padding px-3">
-      <ion-row>
-        <ion-col size="12" size-xl="6" offset-xl="3" class="mb-4">
-          <h2 color="primary">What email would you like to change to?</h2>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-list class="ion-no-padding">
-            <ion-item color="light" lines="none">
-              <ion-label position="floating" color="medium">Email address</ion-label>
-              <ion-input type="text" formControlName="email"></ion-input>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-button shape="round" expand="full" size="large" (click)="updateBtn()">UPDATE</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+<ion-content *ngIf="data === 'edit-gender' && !isLoading" [fullscreen]="true">
+  <div class="container h-full">
+    <form [formGroup]="editGender" class="w-full h-full">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="section">
+            <div class="mb-8">
+              <p class="text-2xl font-bold">Gender</p>
+              <p class="text-gray-500">Kindly select your gender</p>
+            </div>
+            <div>
+              <div class="flex flex-col gap-5">
+                <ion-select
+                  label="Gender"
+                  labelPlacement="floating"
+                  formControlName="gender"
+                  class="border-none"
+                  fill="outline"
+                >
+                  <ion-select-option value="MALE">MALE</ion-select-option>
+                  <ion-select-option value="FEMALE">FEMALE</ion-select-option>
+                </ion-select>
+              </div>
+            </div>
+          </div>
+          <div class="section mt-10 pb-6">
+            <ion-button
+              class="capitalize text-xl"
+              expand="block"
+              (click)="updateBtn()"
+              >Update</ion-button
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </ion-content>
-<!-- <ion-content *ngIf="type === 'mobile-phone' && !isLoading">
-  <form [formGroup]="editMobile">
-    <ion-grid class="ion-no-padding px-3">
-      <ion-row>
-        <ion-col size="12" size-xl="6" offset-xl="3" class="mb-4">
-          <h2 color="primary">What phone number would you like to change to?</h2>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-list class="ion-no-padding">
-            <ion-item color="light" lines="none">
-              <ion-label position="floating" color="medium">Mobile Number</ion-label>
-              <ion-input type="text" formControlName="mobile"></ion-input>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-button shape="round" expand="full" size="large" (click)="updateBtn()">UPDATE</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+<ion-content *ngIf="data === 'edit-email' && !isLoading" [fullscreen]="true">
+  <div class="container h-full">
+    <form [formGroup]="editEmail" class="w-full h-full">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="section">
+            <div class="mb-8">
+              <p class="text-2xl font-bold">Email</p>
+              <p class="text-gray-500">What email would you like to change to?</p>
+            </div>
+            <div>
+              <div class="flex flex-col gap-5">
+                <ion-input
+                  label="Email address"
+                  labelPlacement="floating"
+                  class="border-none px-4"
+                  fill="outline"
+                  type="email"
+                  formControlName="email"
+                ></ion-input>
+              </div>
+            </div>
+          </div>
+          <div class="section mt-10 pb-6">
+            <ion-button
+              class="capitalize text-xl"
+              expand="block"
+              (click)="updateBtn()"
+              >Update</ion-button
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </ion-content>
-<ion-content *ngIf="type === 'edit-address' && !isLoading">
-  <form [formGroup]="editAddress">
-    <ion-grid class="ion-no-padding px-3">
-      <ion-row>
-        <ion-col size="12" size-xl="6" offset-xl="3" class="mb-4">
-          <h2 color="primary">You can update your home address here.</h2>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-list class="ion-no-padding">
-            <ion-item color="light" lines="none">
-              <ion-label position="floating" color="medium">Address Line 1</ion-label>
-              <ion-input type="text" formControlName="address"></ion-input>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-button shape="round" expand="full" size="large" (click)="updateBtn()">UPDATE</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+<ion-content *ngIf="data === 'mobile-phone' && !isLoading" [fullscreen]="true">
+  <div class="container h-full">
+    <form [formGroup]="editMobile" class="w-full h-full">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="section">
+            <div class="mb-8">
+              <p class="text-2xl font-bold">Phone</p>
+              <p class="text-gray-500">What phone number would you like to change to?</p>
+            </div>
+            <div>
+              <div class="flex flex-col gap-5">
+                <ion-input
+                  label="Phone"
+                  labelPlacement="floating"
+                  class="border-none px-4"
+                  fill="outline"
+                  type="tel"
+                  formControlName="mobile"
+                ></ion-input>
+              </div>
+            </div>
+          </div>
+          <div class="section mt-10 pb-6">
+            <ion-button
+              class="capitalize text-xl"
+              expand="block"
+              (click)="updateBtn()"
+              >Update</ion-button
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </ion-content>
-<ion-content *ngIf="type === 'edit-country' && !isLoading">
-  <form [formGroup]="editCountry">
-    <ion-grid class="ion-no-padding px-3">
-      <ion-row>
-        <ion-col size="12" size-xl="6" offset-xl="3" class="mb-4">
-          <h2 color="primary">Update your nationality status here.</h2>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-list class="ion-no-padding">
-            <ion-item color="light" lines="none">
-              <ion-label position="floating" color="medium">Nationality</ion-label>
-              <ion-input type="text" formControlName="nationality"></ion-input>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-        <ion-col size="12" size-xl="6" offset-xl="3">
-          <ion-button shape="round" expand="full" size="large" (click)="updateBtn()">UPDATE</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
-</ion-content> -->
+<ion-content *ngIf="data === 'edit-address' && !isLoading" [fullscreen]="true">
+  <div class="container h-full">
+    <form [formGroup]="editAddress" class="w-full h-full">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="section">
+            <div class="mb-8">
+              <p class="text-2xl font-bold">Address line</p>
+              <p class="text-gray-500">You can update your home address here</p>
+            </div>
+            <div>
+              <div class="flex flex-col gap-5">
+                <ion-input
+                  label="Address Line 1"
+                  labelPlacement="floating"
+                  class="border-none px-4"
+                  fill="outline"
+                  type="text"
+                  formControlName="address"
+                ></ion-input>
+              </div>
+            </div>
+          </div>
+          <div class="section mt-10 pb-6">
+            <ion-button
+              class="capitalize text-xl"
+              expand="block"
+              (click)="updateBtn()"
+              >Update</ion-button
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>
+<ion-content *ngIf="data === 'edit-country' && !isLoading" [fullscreen]="true">
+  <div class="container h-full">
+    <form [formGroup]="editCountry" class="w-full h-full">
+      <div class="h-full flex flex-col justify-between">
+        <div>
+          <div class="section">
+            <div class="mb-8">
+              <p class="text-2xl font-bold">Nationality</p>
+              <p class="text-gray-500">Update your nationality status here</p>
+            </div>
+            <div>
+              <div class="flex flex-col gap-5">
+                <ion-input
+                  label="Nationality"
+                  labelPlacement="floating"
+                  class="border-none px-4"
+                  fill="outline"
+                  type="text"
+                  formControlName="nationality"
+                ></ion-input>
+              </div>
+            </div>
+          </div>
+          <div class="section mt-10 pb-6">
+            <ion-button
+              class="capitalize text-xl"
+              expand="block"
+              (click)="updateBtn()"
+              >Update</ion-button
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ion-content>

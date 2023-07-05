@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { ModalOptions } from '@ionic/angular';
 import { OtpFormComponent } from 'src/app/components/otp-form/otp-form.component';
-import { ModalOptionsInterface } from 'src/app/interceptors/modal-options.interface';
+import { ModalOptionsInterface } from 'src/app/interface/modal-options.interface';
 import { UtilitiesService, AuthService } from 'src/app/services';
 
 @Component({
@@ -31,7 +31,7 @@ export class ForgotPage implements OnInit {
     }),
   });
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   public back() {
     this.router.navigateByUrl('/login');

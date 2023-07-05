@@ -1,0 +1,179 @@
+<ion-header class="ion-no-border">
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12" size-xl="6" offset-xl="3">
+        <ion-toolbar color="#ffffff">
+          <ion-buttons class="ion-no-margin" slot="start">
+            <ion-button (click)="back()">
+              <ion-icon
+                slot="icon-only"
+                color="dark"
+                name="arrow-back-outline"
+              ></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title class="ion-no-padding text-gray-950"
+            >Referral Program</ion-title
+          >
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+<div
+  *ngIf="isLoading"
+  class="ion-text-center bg-white h-full ion-align-items-center flex ion-justify-content-center"
+>
+  <ion-spinner name="circles" color="primary"></ion-spinner>
+</div>
+<div *ngIf="!isLoading && error && error.msg" class="w-full h-full z-50">
+  <app-error
+    [icon]="error.icon"
+    [title]="error.title"
+    [msg]="error.msg"
+  ></app-error>
+</div>
+<ion-content *ngIf="!isLoading && !error?.msg">
+  <div class="container">
+    <div class="section">
+      <ion-grid class="ion-no-padding px-3">
+        <ion-row>
+          <ion-col size="12" size-xl="6" offset-xl="3" class="ion-text-center">
+            <div class="balance-holder">
+              <div>
+                <p class="ion-no-margin text-gray-950 mt-3 text-2xl font-thin">
+                  Total Referrals
+                </p>
+                <h1 class="ion-no-margin text-gray-950 text-5xl mt-1">
+                  {{ account.referrals.length }}
+                </h1>
+                <div class="mb-4">
+                  <ion-icon
+                    name="person-outline"
+                    class="mt-2 icon text-gray-950"
+                  ></ion-icon>
+                </div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col *ngIf="account.referree">
+            <ion-row>
+              <ion-col size="6" class="px-0 py-0 text-center">
+                <p class="m-0 text-sm text-gray-950">You Earned</p>
+                <p class="m-0 font-bold text-md text-gray-500">
+                  {{ account.referree.current_earning | currency }}
+                </p>
+              </ion-col>
+              <ion-col size="6" class="px-0 py-0 text-center">
+                <p class="m-0 text-sm text-gray-950">Total Earnings</p>
+                <p class="m-0 font-bold text-md text-green-600">
+                  {{ account.referree.total_earning | currency }}
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col
+            size="12"
+            size-lg="6"
+            offset-lg="3"
+            *ngIf="!account.referree"
+          >
+            <ion-row>
+              <ion-col size="6" class="px-0 py-0 text-center">
+                <p class="m-0 text-sm text-gray-950">You Earned</p>
+                <p class="m-0 font-bold text-md text-gray-500">
+                  {{ 0 | currency }}
+                </p>
+              </ion-col>
+              <ion-col size="6" class="px-0 py-0 text-center">
+                <p class="m-0 text-sm text-gray-950">Total Earnings</p>
+                <p class="m-0 font-bold text-md text-green-600">
+                  {{ 0 | currency }}
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              <ion-col size="12" class="px-0 py-0 mt-5">
+                <p
+                  class="ion-no-padding m-0 flex ion-align-items-center text-gray-950 font-medium text-2xl"
+                >
+                  <ion-icon name="person-outline" class="light mr-1"></ion-icon
+                  ><span>Your Referral Link</span>
+                </p>
+                <p class="m-0 text-sm text-gray-500">
+                  You can copy and share your promotion link
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              <ion-col size="12" class="px-0 py-0 mt-4">
+                <div class="font-medium ref-link">
+                  <p class="m-0">Referral Link</p>
+                </div>
+                <div>
+                  <div class="py-1 mt-1 flex ion-justify-content-between">
+                    <p class="m-0 text-sm text-gray-500">You Receive</p>
+                    <p class="m-0 text-sm text-gray-950">5%</p>
+                  </div>
+                  <div class="py-1 flex ion-justify-content-between">
+                    <p class="m-0 text-sm text-gray-500">Referral ID</p>
+                    <div class="flex ion-align-items-center">
+                      <p class="m-0 text-sm text-gray-950 mr-1">{{ refId }}</p>
+                      <ion-icon
+                        name="copy-outline"
+                        (click)="copy(refId)"
+                        class="text-primary"
+                      ></ion-icon>
+                    </div>
+                  </div>
+                  <div class="py-1 flex ion-justify-content-between">
+                    <p class="m-0 text-sm text-gray-500">Referral Link</p>
+                    <div class="flex ion-align-items-center">
+                      <p class="m-0 text-sm text-gray-950 mr-1">
+                        https://ax...{{ refId }}
+                      </p>
+                      <ion-icon
+                        name="copy-outline"
+                        (click)="copy(refLink)"
+                        class="text-primary"
+                      ></ion-icon>
+                    </div>
+                  </div>
+                  <div class="py-1 mt-1 flex ion-justify-content-between">
+                    <p class="m-0 text-sm text-gray-500">Referral</p>
+                    <p class="m-0 text-sm text-gray-950">
+                      {{ account.referrals.length }}
+                    </p>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <!-- <ion-row *ngIf="account.referree">
+          <ion-col
+            *ngIf="account.referree.current_earning > 0"
+            size="12"
+            size-lg="6"
+            offset-lg="3"
+            class="mt-5"
+          >
+            <ion-button (click)="withdraw(account.referree)" expand="block"
+              >Withdraw Earnings</ion-button
+            >
+          </ion-col>
+        </ion-row> -->
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

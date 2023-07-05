@@ -85,7 +85,6 @@ export class AuthService {
   public getUser() {
     try {
       const user = StorageService.getItem('axs_user_data');
-      console.log(user);
       return user;
     } catch (e) {
       return e;

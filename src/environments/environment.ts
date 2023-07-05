@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  api: 'http://localhost:8000/api',
-  hostname: 'https://axsagric.net'
+  api: 'https://api.axsagric.net/api',
+  hostname: 'https://axsagric.net',
 };
 
 /*

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">axsagric-ng-app</string>
-    <string name="title_activity_main">axsagric-ng-app</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">Asx Agric</string>
+    <string name="title_activity_main">Asx Agric</string>
+    <string name="package_name">com.asxagric.android.app</string>
+    <string name="custom_url_scheme">com.asxagric.android.app</string>
 </resources>

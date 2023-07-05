@@ -48,6 +48,18 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'referral',
+    loadChildren: () => import('./pages/referral/referral.module').then( m => m.ReferralPageModule)
+  },
+  {
+    path: 'buy',
+    loadChildren: () => import('./pages/buy/buy.module').then( m => m.BuyPageModule)
+  },
+  {
+    path: 'calculator',
+    loadChildren: () => import('./pages/calculator/calculator.module').then( m => m.CalculatorPageModule)
   }
 ];
 @NgModule({

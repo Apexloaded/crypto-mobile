@@ -17,7 +17,6 @@ export class InvestmentsPage implements OnInit {
   public investmentAccount?: InvestmentAccountInterface;
 
   public isLoading = true;
-  public queryType: string;
   public error: errorResponse | undefined;
 
   constructor(
@@ -26,7 +25,6 @@ export class InvestmentsPage implements OnInit {
     private txService: TransactionService,
     private utilService: UtilitiesService
   ) { 
-    this.queryType = 'credit';
     this.user = this.authService.getUser();
   }
 
@@ -36,7 +34,7 @@ export class InvestmentsPage implements OnInit {
 
   ionViewWillEnter() {
     this.user = this.authService.getUser();
-    this.txService.recordRetrieve(`?user_id=${this.user.id}&type=${this.queryType}`)
+    this.txService.recordRetrieve(`?user_id=${this.user.id}`)
     .then(res => {
       this.isLoading = false;
       this.investmentAccount = res?.data.account;

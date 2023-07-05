@@ -1,0 +1,67 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12" size-xl="6" offset-xl="3">
+        <ion-toolbar color="#ffffff">
+          <ion-buttons class="ion-no-margin" slot="start">
+            <ion-button (click)="back()">
+              <ion-icon
+                slot="icon-only"
+                color="dark"
+                name="arrow-back-outline"
+              ></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title class="ion-no-padding text-dark"
+            >Buy Cryptocurrency</ion-title
+          >
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="section">
+      <ion-grid class="ion-no-padding px-3">
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              <ion-col size="12" class="px-0 py-0 mt-5">
+                <p
+                  class="ion-no-padding m-0 flex ion-align-items-center font-medium text-dark text-2xl"
+                >
+                  <ion-icon name="logo-bitcoin" class="light mr-1"></ion-icon
+                  ><span>Buy Bitcoin</span>
+                </p>
+                <p class="m-0 text-sm text-medium">
+                  Purchase bitcoin from any of the trusted vendors
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="mt-4">
+            <ion-list>
+              <ion-item
+                *ngFor="let vendor of links"
+                lines="none"
+                class="ion-no-padding"
+                button
+              >
+                <a [href]="vendor.url">
+                  <div>
+                    <img class="vendor-logo mb-1" [src]="vendor.image" alt="" />
+                    <p class="m-0 text-sm text-gray-400">{{ vendor.desc }}</p>
+                  </div>
+                </a>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

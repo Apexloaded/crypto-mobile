@@ -91,6 +91,7 @@ export class TransactionsPage implements OnInit {
         this.transactions = res?.data.transactions;
         this.investmentAccount = res?.data.account;
         this.filterTransactions();
+        //this.defineError();
       })
       .catch((error) => {
         this.isLoading = false;

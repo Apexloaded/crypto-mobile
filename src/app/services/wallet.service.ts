@@ -16,7 +16,6 @@ export class WalletService {
     private authService: AuthService
   ) {
     let user = this.authService.getUser();
-    console.log(user);
     //this.recordRetrieve(`?user_id=${user.id}`);
   }
 

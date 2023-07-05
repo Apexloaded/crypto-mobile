@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('../pages/transactions/investments/investments.module').then(m => m.InvestmentsPageModule)
       },
       {
+        path: 'referral',
+        loadChildren: () => import('../pages/referral/referral.module').then(m => m.ReferralPageModule)
+      },
+      {
         path: '',
         redirectTo: '/home',
         pathMatch: 'full'

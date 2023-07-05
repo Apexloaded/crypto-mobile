@@ -27,7 +27,7 @@ export class ApiService {
     const apiUrl = `${this.apiUrl}/${url}`;
     return this.http
       .get<any>(apiUrl, httpOptions)
-      .pipe(retry(3), map(this.extractData), catchError(this.handleError));
+      .pipe(retry(1), map(this.extractData), catchError(this.handleError));
   }
 
   postApi(url: string, data: any): Observable<any> {
@@ -35,7 +35,7 @@ export class ApiService {
     const payload = cleanObject(data);
     return this.http
       .post(apiUrl, payload, httpOptions)
-      .pipe(retry(3), catchError(this.handleError));
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   updateApi(url: string, data: any): Observable<any> {
@@ -43,21 +43,21 @@ export class ApiService {
     const apiUrl = `${this.apiUrl}/${url}`;
     return this.http
       .put(apiUrl, payload, httpOptions)
-      .pipe(retry(3), catchError(this.handleError));
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   patchApi(url: string, data = {}): Observable<any> {
     const apiUrl = `${this.apiUrl}/${url}`;
     return this.http
       .patch(apiUrl, data, httpOptions)
-      .pipe(retry(3), catchError(this.handleError));
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   deleteApi(url: string): Observable<{}> {
     const apiUrl = `${this.apiUrl}/${url}`;
     return this.http
       .delete(apiUrl, httpOptions)
-      .pipe(retry(3), catchError(this.handleError));
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   getImageUrl(str: string) {
@@ -68,7 +68,8 @@ export class ApiService {
     if (error.error instanceof ErrorEvent) {
       console.error(`\n\n::Frontend Error: ${error.status}\n\n`);
     } else {
-      console.error(`\n\n::Backend Error:\n\n`);
+      console.error(`>>>>>>>>MY ERROR>>>>>>>> ${error}`);
+      console.error(`\n\n::Backend Error:: >>>>>>>\n\n`);
     }
     return throwError(error);
   }

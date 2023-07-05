@@ -18,10 +18,10 @@ export class ProfileEditComponent implements OnInit {
 
   public editName: FormGroup;
   public editEmail: FormGroup;
-  // public editMobile: FormGroup;
-  // public editAddress: FormGroup;
+  public editMobile: FormGroup;
+  public editAddress: FormGroup;
   public editGender: FormGroup;
-  // public editCountry: FormGroup;
+  public editCountry: FormGroup;
   public user: User;
   public isLoading: boolean;
 
@@ -36,27 +36,9 @@ export class ProfileEditComponent implements OnInit {
     this.editName = this.buildEditName();
     this.editEmail = this.buildEditEmail();
     this.editGender = this.buildEditGender();
-    console.log('Initialized Constructor');
-    // switch (this.data) {
-    //   case 'edit-name':
-    //     this.editName = this.buildEditName(this.user);
-    //     break;
-    //   case 'edit-gender':
-    //     this.buildEditGender(this.user, true);
-    //     break;
-    //   case 'edit-email':
-    //     this.buildEditEmail(this.user, true);
-    //     break;
-    //   case 'mobile-phone':
-    //     this.buildEditMobile(this.user, true);
-    //     break;
-    //   case 'edit-address':
-    //     this.buildEditAddress(this.user, true);
-    //     break;
-    //   case 'edit-country':
-    //     this.buildEditCountry(this.user, true);
-    //     break;
-    // }
+    this.editMobile = this.buildEditMobile();
+    this.editAddress = this.buildEditAddress();
+    this.editCountry = this.buildEditCountry();
   }
 
   ngOnInit() {
@@ -151,80 +133,92 @@ export class ProfileEditComponent implements OnInit {
     this.sendReq(data, this.user.id);
   }
 
-  // buildEditMobile(value, isBuild: boolean) {
-  //   if (isBuild) {
-  //     this.editMobile = this.fb.group({
-  //       mobile: new FormControl(value.phone, {
-  //         updateOn: 'change',
-  //         validators: [Validators.required],
-  //       }),
-  //     });
-  //     this.isLoading = false;
-  //     return;
-  //   }
+  /**
+   * EDIT MOBILE FUNCTIONS
+   * @returns form
+   */
+  buildEditMobile() {
+    const form = this.fb.group({
+      mobile: new FormControl(this.user.phone, {
+        updateOn: 'change',
+        validators: [Validators.required],
+      }),
+    });
+    this.isLoading = false;
+    return form;
+  }
 
-  //   if (!this.editMobile.valid) {
-  //     this.utilService.presentToast(
-  //       'Please enter your mobile phone number',
-  //       3000
-  //     );
-  //     return;
-  //   }
+  sendEditMobile() {
+    if (!this.editMobile.valid) {
+      this.utilService.presentToast(
+        'Please enter your mobile phone number',
+        3000
+      );
+      return;
+    }
 
-  //   const data = {
-  //     phone: `${this.editMobile.controls['mobile'].value}`,
-  //   };
+    const data = {
+      phone: `${this.editMobile.controls['mobile'].value}`,
+    };
 
-  //   this.sendReq(data, value.id);
-  // }
+    this.sendReq(data, this.user.id);
+  }
 
-  // buildEditAddress(value, isBuild: boolean) {
-  //   if (isBuild) {
-  //     this.editAddress = this.fb.group({
-  //       address: new FormControl(value.address, {
-  //         updateOn: 'change',
-  //         validators: [Validators.required],
-  //       }),
-  //     });
-  //     this.isLoading = false;
-  //     return;
-  //   }
+  /**
+   * EDIT ADDRESS FUNCTIONS
+   * @returns form
+   */
+  buildEditAddress() {
+    const form = this.fb.group({
+      address: new FormControl(this.user.address, {
+        updateOn: 'change',
+        validators: [Validators.required],
+      }),
+    });
+    this.isLoading = false;
+    return form;
+  }
 
-  //   if (!this.editAddress.valid) {
-  //     this.utilService.presentToast('Please enter your address', 3000);
-  //     return;
-  //   }
+  sendEditAddress() {
+    if (!this.editAddress.valid) {
+      this.utilService.presentToast('Please enter your address', 3000);
+      return;
+    }
 
-  //   const data = {
-  //     address: `${this.editAddress.controls['address'].value}`,
-  //   };
+    const data = {
+      address: `${this.editAddress.controls['address'].value}`,
+    };
 
-  //   this.sendReq(data, value.id);
-  // }
+    this.sendReq(data, this.user.id);
+  }
 
-  // buildEditCountry(value, isBuild: boolean) {
-  //   if (isBuild) {
-  //     this.editCountry = this.fb.group({
-  //       nationality: new FormControl(value.nationality, {
-  //         updateOn: 'change',
-  //         validators: [Validators.required],
-  //       }),
-  //     });
-  //     this.isLoading = false;
-  //     return;
-  //   }
+  /**
+   * EDIT ADDRESS FUNCTIONS
+   * @returns form
+   */
+  buildEditCountry() {
+    const form = this.fb.group({
+      nationality: new FormControl(this.user.nationality, {
+        updateOn: 'change',
+        validators: [Validators.required],
+      }),
+    });
+    this.isLoading = false;
+    return form;
+  }
 
-  //   if (!this.editCountry.valid) {
-  //     this.utilService.presentToast('Please fill in your country', 3000);
-  //     return;
-  //   }
+  sendEditCountry() {
+    if (!this.editCountry.valid) {
+      this.utilService.presentToast('Please fill in your country', 3000);
+      return;
+    }
 
-  //   const data = {
-  //     nationality: `${this.editCountry.controls['nationality'].value}`,
-  //   };
+    const data = {
+      nationality: `${this.editCountry.controls['nationality'].value}`,
+    };
 
-  //   this.sendReq(data, value.id);
-  // }
+    this.sendReq(data, this.user.id);
+  }
 
   sendReq(data: any, id: string) {
     this.utilService.presentLoading('circles').then(() => {
@@ -254,25 +248,25 @@ export class ProfileEditComponent implements OnInit {
   }
 
   updateBtn() {
-    // switch (this.type) {
-    //   case 'edit-name':
-    //     this.buildEditName(this.user, false);
-    //     break;
-    //   case 'edit-email':
-    //     this.buildEditEmail(this.user, false);
-    //     break;
-    //   case 'mobile-phone':
-    //     this.buildEditMobile(this.user, false);
-    //     break;
-    //   case 'edit-gender':
-    //     this.buildEditGender(this.user, false);
-    //     break;
-    //   case 'edit-address':
-    //     this.buildEditAddress(this.user, false);
-    //     break;
-    //   case 'edit-country':
-    //     this.buildEditCountry(this.user, false);
-    //     break;
-    // }
+    switch (this.data) {
+      case 'edit-name':
+        this.sendEditName();
+        break;
+      case 'edit-email':
+        this.sendEditEmail();
+        break;
+      case 'mobile-phone':
+        this.sendEditMobile();
+        break;
+      case 'edit-gender':
+        this.sendEditGender();
+        break;
+      case 'edit-address':
+        this.sendEditAddress();
+        break;
+      case 'edit-country':
+        this.sendEditCountry();
+        break;
+    }
   }
 }

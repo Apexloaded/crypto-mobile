@@ -92,6 +92,7 @@ export class LoginPage implements OnInit {
           }
         )
         .catch(error => {
+          console.error(error);
           this.utilService.dismisLoadCtrl();
           if(error.name === 'HttpErrorResponse' && error.status == 0) {
             this.utilService.presentToast('Error from our end', 3000);

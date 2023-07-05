@@ -12,9 +12,11 @@ export class TransactionService {
 
   async recordRetrieve(query = '') {
     const url = `transactions${query}`;
-    const proRes = this.apiService
-      .getApi(url)
-      .pipe(map((res: ApiResponse) => res));
+    const proRes = this.apiService.getApi(url).pipe(
+      map((res: ApiResponse) => {
+        return res;
+      })
+    );
     return await proRes.toPromise();
   }
 

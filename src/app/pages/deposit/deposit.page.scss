@@ -11,3 +11,7 @@ ion-button {
   --padding-top: 25px;
   --padding-bottom: 25px;
 }
+
+.ios .section {
+  @apply mt-4;
+}

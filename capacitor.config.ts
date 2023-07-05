@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'axsagric-ng-app',
+  appId: 'com.asxagric.ios.app',
+  appName: 'Asx Agric',
   webDir: 'www',
   server: {
     androidScheme: 'https'

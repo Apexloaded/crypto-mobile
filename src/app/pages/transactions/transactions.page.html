@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="ion-no-shadow">
+  <ion-toolbar class="ion-no-shadow" color="#ffffff">
     <ion-buttons class="ion-no-margin" slot="start">
       <ion-button (click)="back()">
         <ion-icon
@@ -16,7 +16,7 @@
     color="primary"
     [(ngModel)]="segment"
     color="medium"
-    class="header-segment bg-light"
+    class="header-segment bg-white"
     (ionChange)="segmentChanged()"
   >
     <ion-segment-button value="0">
@@ -35,9 +35,9 @@
 </ion-header>
 <div
   *ngIf="isLoading"
-  class="ion-text-center h-full ion-align-items-center flex ion-justify-content-center"
+  class="ion-text-center bg-white h-full ion-align-items-center flex ion-justify-content-center"
 >
-  <ion-spinner name="circles"></ion-spinner>
+  <ion-spinner name="circles" color="primary"></ion-spinner>
 </div>
 <div *ngIf="!isLoading && error && error.msg" class="w-full h-full z-50">
   <app-error
