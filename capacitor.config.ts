@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.asxagric.ios.app',
-  appName: 'Asx Agric',
+  appId: 'com.agricxs.android.app',
+  appName: 'Agric XS',
   webDir: 'www',
   server: {
     androidScheme: 'https'

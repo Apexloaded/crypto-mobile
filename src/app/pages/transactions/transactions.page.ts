@@ -41,7 +41,6 @@ export class TransactionsPage implements OnInit {
     initialSlide: 0,
     slidesPerView: 1,
     speed: 400,
-    direction: 'horizontal',
     centeredSlides: true,
     spaceBetween: 1,
   };

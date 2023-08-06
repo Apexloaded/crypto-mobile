@@ -1,4 +1,4 @@
-package com.asxagric.android.app;
+package com.agricxs.android.app;
 
 import com.getcapacitor.BridgeActivity;
 

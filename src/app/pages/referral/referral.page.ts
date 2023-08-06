@@ -47,7 +47,6 @@ export class ReferralPage implements OnInit {
         this.account = res?.data;
       })
       .catch((error) => {
-        console.log(error);
         this.isLoading = false;
         if (error.name === 'HttpErrorResponse') {
           this.error = {
@@ -69,7 +68,7 @@ export class ReferralPage implements OnInit {
     await Clipboard.write({
       string: text,
     });
-    this.utilService.presentToast('Transaction ID Copied', 3000);
+    this.utilService.presentToast('Copied to clipboard', 3000);
   }
 
   public defineError() {
