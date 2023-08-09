@@ -5,8 +5,10 @@ ion-input {
   --padding-start: 22px !important;
 }
 
-ion-button {
-  --border-radius: 18px;
-  --padding-top: 25px;
-  --padding-bottom: 25px;
+.section {
+  ion-button {
+    --border-radius: 18px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+  }
 }

@@ -60,6 +60,10 @@ const routes: Routes = [
   {
     path: 'calculator',
     loadChildren: () => import('./pages/calculator/calculator.module').then( m => m.CalculatorPageModule)
+  },
+  {
+    path: 'welcome',
+    loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule)
   }
 ];
 @NgModule({

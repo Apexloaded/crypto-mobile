@@ -13,7 +13,7 @@
     "run-android": "ionic cap open android",
     "run-ios": "ionic cap run ios -l --target=FB256D21-F9A8-4CF1-890B-84D9DE3345B7 --prod",
     "resources": "cordova-res --skip-config --copy",
-    "cap-res": "npx capacitor-assets generate",
+    "cap-res": "npx capacitor-assets generate --pwa",
     "gen-key": "keytool -genkey -v -keystore release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000",
     "sign-app": "jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore pml-customer-app.keystore ./android/app/build/outputs/apk/release/app-release-unsigned.apk alias_name",
     "zip-app": "zipalign -v 4 ./platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk pml-mobile-app.apk"

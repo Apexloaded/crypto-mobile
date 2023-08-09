@@ -1,0 +1,32 @@
+.section {
+  ion-button {
+    --border-radius: 25px;
+    --padding-top: 18px;
+    --padding-bottom: 18px;
+    --background: var(--ion-color-light);
+    --color: var(--ion-color-primary);
+    font-size: large;
+  }
+}
+
+.welcome {
+   background-image: url('../../../assets/images/bg.jpg');
+   background-attachment: fixed;
+}
+
+.block {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-modal {
+  --border-radius: 40px;
+}
+
+.bb {
+    background-image: url('../../../assets/images/bg.jpg');
+    background-attachment: fixed;
+}
